@@ -46,12 +46,35 @@ print(covid_level.head())  # Print first 5 row (head) of dataset
 print(covid_level.tail())  # Print last 5 row (tail) of dataset
 
 print(covid_level.isnull().any())  # check whether there were any rows with nulls
-# print(covid_level[covid_level["covid_hospital_admissions_per_100k"].isnull()].head())  # Print first 5 row (head) with
+# print(covid_level[covid_level["county_population"].isnull()].head())  # Print first 5 row (head) with
 # nulls of dataset
 # print(covid_level[covid_level["covid_hospital_admissions_per_100k"].isnull()].tail())  # Print last 5 row (tail) with
 # nulls of dataset
-
 # covid_level_short = covid_level.drop("covid-19_community_level", axis=1)
+
+print(covid_level.loc[covid_level['county_population'].isnull(), 'health_service_area_population'].unique())
+print("County with empty county_population: \n{}".format(covid_level['county'][covid_level['county_population']
+                                                         .isnull()].unique()))
+print()
+
+print("County with empty health_service_area_population: \n{}".format(covid_level['county']
+                                                                      [covid_level['health_service_area_population']
+                                                                      .isnull()].unique()))
+print()
+
+print("County with empty covid_inpatient_bed_utilization: \n{}".format(covid_level['county']
+                                                                       [covid_level['covid_inpatient_bed_utilization']
+                                                                       .isnull()].unique()))
+print()
+
+print("County with empty covid_hospital_admissions_per_100k: \n{}".
+      format(covid_level['county'][covid_level['covid_hospital_admissions_per_100k'].isnull()].unique()))
+print()
+
+print("County with empty covid-19_community_level: \n{}".format(covid_level['county']
+                                                                [covid_level['covid-19_community_level'].isnull()]
+                                                                .unique()))
+print()
 
 covid_level_short = covid_level_remove.drop(["county_fips", "state", "health_service_area_number",
                                              "health_service_area", "health_service_area_population",
@@ -61,5 +84,10 @@ covid_level_short = covid_level_remove.drop(["county_fips", "state", "health_ser
 
 print(covid_level_short)
 
-print(covid_level_short.describe())  # show statistics of the dataset
+# covid_level_short_remove = covid_level_short.dropna()  # remove/drop the rows where at least one element is missing.
 
+# print(covid_level_short.covid_cases_per_100k.sort_values(ascending=False, inplace=False))
+print(covid_level_short.sort_values(by='covid_cases_per_100k', ascending=False))  # Sort Descending the dataset by
+# colum covid_cases_per_100k
+
+print(covid_level_short.describe())  # show statistics of the dataset
