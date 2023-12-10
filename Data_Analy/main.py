@@ -97,11 +97,29 @@ print("\n")
 
 print(covid_level_short.sort_values(by='covid_cases_per_100k', ascending=False).groupby('county'))  # groupby()
 # method of DataFrames, passing the name of the desired key column
-print(covid_level_short.sort_values(by='covid_cases_per_100k', ascending=False).groupby('county').sum())
-covid_level_sum = covid_level_short.groupby('county').sum()
-# print(covid_level_sum.sort_values(by='covid_cases_per_100k', ascending=False).groupby('covid_cases_per_100k'))
-print(covid_level_sum[0:30])
+print("\n")
 
+print(covid_level_short.sort_values(by='covid_cases_per_100k', ascending=False).groupby('county').sum())
+print("\n")
+
+'''
+covid_level_split = covid_level_short.groupby('county').split()
+print(covid_level_split[0:30])
+print("\n")
+'''
+
+covid_level_sum = covid_level_short.groupby('county').sum()
+print(covid_level_sum[0:30])
+print("\n")
+
+'''
+covid_level_combine = covid_level_short.groupby('county').combine()
+print(covid_level_combine[0:30])
+print("\n")
+'''
+
+# print(covid_level_sum.groupby('county')['covid_cases_per_100k'].median())
+print("\n")
 
 
 
