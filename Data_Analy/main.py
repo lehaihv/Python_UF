@@ -33,7 +33,7 @@ print(citi_bikes.isnull().any())  # check whether there were any rows with nulls
 print(citi_bikes[citi_bikes["birth year"].isnull()].head())  # Print first 5 row (head) with nulls of dataset
 print(citi_bikes[citi_bikes["birth year"].isnull()].tail())  # Print last 5 row (tail) with nulls of dataset
 '''
-
+'''
 print("Shape of covid level data: {}".format(covid_level.shape))  # show shape of dataset including number of data
 # points and features
 print("Feature names: \n{}".format(covid_level.keys()))  # print all feature names of dataset
@@ -51,7 +51,8 @@ print(covid_level.isnull().any())  # check whether there were any rows with null
 # print(covid_level[covid_level["covid_hospital_admissions_per_100k"].isnull()].tail())  # Print last 5 row (tail) with
 # nulls of dataset
 # covid_level_short = covid_level.drop("covid-19_community_level", axis=1)
-
+'''
+'''
 print(covid_level.loc[covid_level['county_population'].isnull(), 'health_service_area_population'].unique())
 print("County with empty county_population: \n{}".format(covid_level['county'][covid_level['county_population']
                                                          .isnull()].unique()))
@@ -75,19 +76,50 @@ print("County with empty covid-19_community_level: \n{}".format(covid_level['cou
                                                                 [covid_level['covid-19_community_level'].isnull()]
                                                                 .unique()))
 print()
-
+'''
+covid_level_remove = covid_level.dropna()
 covid_level_short = covid_level_remove.drop(["county_fips", "state", "health_service_area_number",
                                              "health_service_area", "health_service_area_population",
                                              "covid_inpatient_bed_utilization", "covid_hospital_admissions_per_100k",
                                              "covid-19_community_level", "date_updated"], axis=1)  # drop some
 # features info
 
-print(covid_level_short)
+# print(covid_level_short)
 
 # covid_level_short_remove = covid_level_short.dropna()  # remove/drop the rows where at least one element is missing.
 
 # print(covid_level_short.covid_cases_per_100k.sort_values(ascending=False, inplace=False))
-print(covid_level_short.sort_values(by='covid_cases_per_100k', ascending=False))  # Sort Descending the dataset by
+print(covid_level_short.sort_values(by='covid_cases_per_100k', ascending=False)[0:30])  # Sort Descending the dataset by
 # colum covid_cases_per_100k
 
-print(covid_level_short.describe())  # show statistics of the dataset
+# print(covid_level_short.describe())  # show statistics of the dataset
+print("\n")
+
+print(covid_level_short.sort_values(by='covid_cases_per_100k', ascending=False).groupby('county'))  # groupby()
+# method of DataFrames, passing the name of the desired key column
+print(covid_level_short.sort_values(by='covid_cases_per_100k', ascending=False).groupby('county').sum())
+covid_level_sum = covid_level_short.groupby('county').sum()
+# print(covid_level_sum.sort_values(by='covid_cases_per_100k', ascending=False).groupby('covid_cases_per_100k'))
+print(covid_level_sum[0:30])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
