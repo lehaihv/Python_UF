@@ -119,8 +119,10 @@ print("\n")
 '''
 
 # print(covid_level_sum.groupby('county')['covid_cases_per_100k'].median())
-covid_level_sum.to_csv('data/ch05_07.csv')
-print("\n")
+# covid_level_sum.to_csv('data/ch05_07.csv')  # Save dataset back to *.csv
+# print("\n")
+
+
 
 
 
