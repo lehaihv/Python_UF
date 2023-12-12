@@ -9,6 +9,10 @@ from sklearn.preprocessing import MinMaxScaler
 # citi_bikes = pd.DataFrame(pd.read_csv("data/citibike.csv"))
 covid_level = pd.read_csv("data/covidlevel.csv", encoding='latin-1')
 
+pd.set_option('display.max_columns', None)  # force pandas to display any/all number of columns.
+# pd.set_option('display.max_columns', 6)  # force pandas to display 6 columns.
+# pd.set_option('display.max_rows', None)  # force pandas to display any/all number of rows.
+
 # X_train, X_test, y_train, y_test = train_test_split(citi_bikes.tripduration, citi_bikes.bikeid,
 #                                                    random_state=1)
 
@@ -79,6 +83,7 @@ print("County with empty covid-19_community_level: \n{}".format(covid_level['cou
 print()
 
 covid_level_remove = covid_level.dropna()
+covid_level_remove = covid_level.dropna(subset=['county_population', 'covid_hospital_admissions_per_100k', 'covid_cases_per_100k'])
 covid_level_short = covid_level_remove.drop(["county_fips", "state", "health_service_area_number",
                                              "health_service_area", "health_service_area_population",
                                              "covid_inpatient_bed_utilization", "covid_hospital_admissions_per_100k",
@@ -144,17 +149,33 @@ ax.scatter(x, y, s=sizes, c=colors)   # , vmin=0, vmax=100)
 
 plt.show()
 '''
+'''
 covid_level_removeNaN = covid_level.dropna()
 print(covid_level_removeNaN.isnull().any())  # check whether there were any rows with nulls
 
 # covid_level_sum = covid_level_removeNaN.groupby('county').sum()
 # print(covid_level_sum)
-print(covid_level_removeNaN.pivot_table('covid_cases_per_100k', index='county', columns='covid-19_community_level'))
+print(covid_level_removeNaN.pivot_table('covid_cases_per_100k',
+                                        index='county', columns='covid-19_community_level'))
 # covid_level_removeNaN.to_csv('data/ch05_07.csv')
-hospital_number = pd.cut(covid_level_removeNaN['county'], [0, 10, 30])
+hospital_number = pd.cut(covid_level_removeNaN['covid_hospital_admissions_per_100k'], [0, 10, 30])
 
-print(covid_level_removeNaN.pivot_table('covid_cases_per_100k', ['county', hospital_number], 'covid-19_community_level'))
+print(covid_level_removeNaN.pivot_table('covid_cases_per_100k',
+                                        ['county', hospital_number], 'covid-19_community_level')[0:10])
+'''
 
-
-
-
+# print(covid_level)
+covid_level_remove = covid_level.dropna(subset=['county_population', 'covid_hospital_admissions_per_100k',
+                                                'covid_cases_per_100k'])
+covid_level_short = covid_level_remove.drop(["county_fips", "state", "health_service_area_number",
+                                             "health_service_area", "health_service_area_population",
+                                             "covid_inpatient_bed_utilization",
+                                             "covid-19_community_level", "date_updated"], axis=1)  # drop some
+# features info
+covid_level_sum = covid_level_short.groupby('county').sum()
+print(covid_level_sum)
+# sns.set() # use Seaborn styles
+covid_level_sum.pivot_table('covid_cases_per_100k', index='county', columns='covid_hospital_admissions_per_100k',
+                            aggfunc='sum')[0:5].plot()
+# plt.ylabel('total births per year');
+plt.show()
