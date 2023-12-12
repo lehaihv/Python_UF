@@ -1,5 +1,6 @@
 import pandas as pd
 from matplotlib import pyplot as plt
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 
@@ -122,25 +123,25 @@ print("\n")
 # covid_level_sum.to_csv('data/ch05_07.csv')  # Save dataset back to *.csv
 # print("\n")
 
+''' Matplotlib graph
+plt.style.use('_mpl-gallery')
 
+# make the data
+# np.random.seed(3)
+x = covid_level_sum.county_population
+y = covid_level_sum.covid_cases_per_100k
+# size and color:
+sizes = np.random.uniform(15, 80, len(x))
+colors = np.random.uniform(15, 80, len(x))
 
+# plot
+fig, ax = plt.subplots()
 
+ax.scatter(x, y, s=sizes, c=colors)   # , vmin=0, vmax=100)
 
+# ax.set(xlim=(0, 200000), xticks=np.arange(1, 200000),
+#       ylim=(0, 200000), yticks=np.arange(1, 200000))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+plt.show()
+'''
 
