@@ -77,18 +77,18 @@ print("County with empty covid-19_community_level: \n{}".format(covid_level['cou
                                                                 [covid_level['covid-19_community_level'].isnull()]
                                                                 .unique()))
 print()
-'''
+
 covid_level_remove = covid_level.dropna()
 covid_level_short = covid_level_remove.drop(["county_fips", "state", "health_service_area_number",
                                              "health_service_area", "health_service_area_population",
                                              "covid_inpatient_bed_utilization", "covid_hospital_admissions_per_100k",
                                              "covid-19_community_level", "date_updated"], axis=1)  # drop some
 # features info
-
+'''
 # print(covid_level_short)
 
 # covid_level_short_remove = covid_level_short.dropna()  # remove/drop the rows where at least one element is missing.
-
+'''
 # print(covid_level_short.covid_cases_per_100k.sort_values(ascending=False, inplace=False))
 print(covid_level_short.sort_values(by='covid_cases_per_100k', ascending=False)[0:30])  # Sort Descending the dataset by
 # colum covid_cases_per_100k
@@ -102,17 +102,17 @@ print("\n")
 
 print(covid_level_short.sort_values(by='covid_cases_per_100k', ascending=False).groupby('county').sum())
 print("\n")
-
+'''
 '''
 covid_level_split = covid_level_short.groupby('county').split()
 print(covid_level_split[0:30])
 print("\n")
 '''
-
+'''
 covid_level_sum = covid_level_short.groupby('county').sum()
 print(covid_level_sum[0:30])
 print("\n")
-
+'''
 '''
 covid_level_combine = covid_level_short.groupby('county').combine()
 print(covid_level_combine[0:30])
@@ -144,4 +144,17 @@ ax.scatter(x, y, s=sizes, c=colors)   # , vmin=0, vmax=100)
 
 plt.show()
 '''
+covid_level_removeNaN = covid_level.dropna()
+print(covid_level_removeNaN.isnull().any())  # check whether there were any rows with nulls
+
+# covid_level_sum = covid_level_removeNaN.groupby('county').sum()
+# print(covid_level_sum)
+print(covid_level_removeNaN.pivot_table('covid_cases_per_100k', index='county', columns='covid-19_community_level'))
+# covid_level_removeNaN.to_csv('data/ch05_07.csv')
+hospital_number = pd.cut(covid_level_removeNaN['county'], [0, 10, 30])
+
+print(covid_level_removeNaN.pivot_table('covid_cases_per_100k', ['county', hospital_number], 'covid-19_community_level'))
+
+
+
 
