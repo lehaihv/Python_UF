@@ -169,13 +169,22 @@ covid_level_remove = covid_level.dropna(subset=['county_population', 'covid_hosp
                                                 'covid_cases_per_100k'])
 covid_level_short = covid_level_remove.drop(["county_fips", "state", "health_service_area_number",
                                              "health_service_area", "health_service_area_population",
-                                             "covid_inpatient_bed_utilization",
-                                             "covid-19_community_level", "date_updated"], axis=1)  # drop some
-# features info
-covid_level_sum = covid_level_short.groupby('county').sum()
-print(covid_level_sum)
+                                             "covid_inpatient_bed_utilization"], axis=1)  # drop some
+# features info "covid-19_community_level",,
+#                                              "date_updated"
+# covid_level_sum = covid_level_short.groupby('county').sum()
+# print(covid_level_short)
+# print(covid_level_short.loc[(covid_level_short['covid_hospital_admissions_per_100k'] > 0) &
+#                            (covid_level_short['date_updated'] == "2/24/2022")])
+covid_level_day = covid_level_short.loc[(covid_level_short['covid_hospital_admissions_per_100k'] > 0) &
+                                        (covid_level_short['date_updated'] == "2/24/2022")]
+# print(covid_level_day)
+# covid_level_day.to_csv('data/ch05_07.csv')
 # sns.set() # use Seaborn styles
-covid_level_sum.pivot_table('covid_cases_per_100k', index='county', columns='covid_hospital_admissions_per_100k',
-                            aggfunc='sum')[0:5].plot()
-# plt.ylabel('total births per year');
+covid_level_day_sum = covid_level_day.groupby('county').sum()
+print(covid_level_day_sum)
+covid_level_day_sum.to_csv('data/ch05_07.csv')
+covid_level_day.pivot_table('covid_cases_per_100k', index='county', columns='covid-19_community_level',
+                            aggfunc='sum')[0:10].plot()
+plt.ylabel('covid_cases_per_100k')
 plt.show()
