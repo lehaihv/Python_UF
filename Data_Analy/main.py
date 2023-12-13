@@ -185,9 +185,13 @@ covid_level_day_sum = covid_level_day.groupby('county').sum()
 print(covid_level_day_sum)
 # covid_level_day_sum.to_csv('data/ch05_07.csv')
 '''
-covid_level_day_sum = pd.read_csv("data/ch05.csv", encoding='latin-1')[0:10]
+covid_level_day_sum = pd.read_csv("data/ch05.csv", encoding='latin-1')[0:20]
 print(covid_level_day_sum)
-covid_level_day_sum.pivot_table('covid_hospital_admissions_per_100k', index='county', columns='covid-19_community_level',
-                                aggfunc='sum').plot()
+covid_level_day_sum.pivot_table('covid_cases_per_100k', index='covid_hospital_admissions_per_100k',
+                                columns='covid-19_community_level', aggfunc='sum').plot()
 plt.ylabel('covid_cases_per_100k')
+# ax.set_xticks(numpy.arange(0, 1, 0.1))
+# ax.set_yticks(numpy.arange(0, 1., 0.1))
+
+plt.grid()
 plt.show()
