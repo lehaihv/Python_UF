@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
+from natsort import index_natsorted
 
 # citi_bikes = pd.read_csv("data/citibike.csv")
 
@@ -185,8 +186,15 @@ covid_level_day_sum = covid_level_day.groupby('county').sum()
 print(covid_level_day_sum)
 # covid_level_day_sum.to_csv('data/ch05_07.csv')
 '''
-covid_level_day_sum = pd.read_csv("data/ch05.csv", encoding='latin-1')[0:20]
-print(covid_level_day_sum)
+'''
+covid_level_day_sum = pd.read_csv("data/ch05.csv", encoding='latin-1')[0:50]
+# print(covid_level_day_sum)
+covid_level_day_sum_short = covid_level_day_sum.pivot_table('covid_cases_per_100k',
+                                                            index='covid_hospital_admissions_per_100k',
+                                                            columns='covid-19_community_level', aggfunc='sum')
+# print(covid_level_day_sum)
+print(covid_level_day_sum_short)
+print(covid_level_day_sum_short.isnull().any())
 covid_level_day_sum.pivot_table('covid_cases_per_100k', index='covid_hospital_admissions_per_100k',
                                 columns='covid-19_community_level', aggfunc='sum').plot()
 plt.ylabel('covid_cases_per_100k')
@@ -194,4 +202,50 @@ plt.ylabel('covid_cases_per_100k')
 # ax.set_yticks(numpy.arange(0, 1., 0.1))
 
 plt.grid()
+plt.show()
+'''
+
+covid_level_sum = covid_level.groupby('date_updated').sum()
+covid_level_short = covid_level_sum.drop(["county", "county_fips", "state", "county_population",
+                                          "health_service_area_number",
+                                          "health_service_area", "health_service_area_population",
+                                          "covid_inpatient_bed_utilization", "covid-19_community_level"],
+                                         axis=1)  # drop some features
+print(covid_level_short)
+# covid_level_short.to_csv('data/ch05.csv')
+covid_level_date = pd.read_csv("data/ch05.csv", encoding='latin-1')
+# print(covid_level_date.sort_values(by="date_updated", key=lambda x: np.argsort(index_natsorted(
+# covid_level_date["date_updated"])))[0:20])
+
+# checking datatype
+print(type(covid_level_date.date_updated[0]))
+
+# convert to date
+covid_level_date['date_updated'] = pd.to_datetime(covid_level_date['date_updated'])
+
+# verify datatype
+print(type(covid_level_date.date_updated[0]))
+
+print(covid_level_date.sort_values(by='date_updated'))
+# covid_level_date.sort_values(by='date_updated').to_csv('data/ch05.csv')
+covid_level_date_short = covid_level_date.sort_values(by='date_updated')
+print(covid_level_date_short)
+
+# data from United Nations World Population Prospects (Revision 2019)
+# https://population.un.org/wpp/, license: CC BY 3.0 IGO
+year = covid_level_date_short.date_updated[0:63]
+population_by_continent = {
+    'covid_hospital_admissions_per_100k': covid_level_date_short.covid_hospital_admissions_per_100k[0:63],
+    'covid_cases_per_100k': covid_level_date_short.covid_cases_per_100k[0:63],
+}
+
+fig, ax = plt.subplots()
+ax.stackplot(year, population_by_continent.values(),
+             labels=population_by_continent.keys(), alpha=0.8)
+ax.legend(loc='upper right', reverse=True)
+ax.set_title('Covid Level in US')
+ax.set_xlabel('Time Stamp')
+ax.set_ylabel('Number of cases')
+# plt.grid()
+# plt.plot(range(200), '--bo', label='line with marker')
 plt.show()
