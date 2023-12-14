@@ -231,6 +231,7 @@ covid_level_date['date_updated'] = pd.to_datetime(covid_level_date['date_updated
 covid_level_date_short = covid_level_date.sort_values(by='date_updated')
 print(covid_level_date_short)
 
+''' Stackplot
 # data from United Nations World Population Prospects (Revision 2019)
 # https://population.un.org/wpp/, license: CC BY 3.0 IGO
 year = covid_level_date_short.date_updated
@@ -242,11 +243,36 @@ population_by_continent = {
 
 fig, ax = plt.subplots()
 ax.stackplot(year, population_by_continent.values(),
-             labels=population_by_continent.keys(), alpha=0.8)
+             labels=population_by_continent.keys(), baseline='zero', alpha=0.8)
 ax.legend(loc='upper right', reverse=True)
 ax.set_title('Covid Level in US')
 ax.set_xlabel('Time Stamp')
 ax.set_ylabel('Number of cases')
 # plt.grid()
-# plt.plot(range(200), '--bo', label='line with marker')
+# plt.plot(marker="o", markeredgecolor="red")
+plt.show()
+'''
+
+'''# 3 simple subplots
+fig, (ax1, ax2, ax3) = plt.subplots(3, 1)
+fig.suptitle('Covid Level in the US with 3 subplots')
+
+ax1.plot(covid_level_date_short.date_updated, covid_level_date_short.covid_inpatient_bed_utilization, 'o-')
+ax1.set_ylabel('covid_inpatient_bed_utilization')
+
+ax2.plot(covid_level_date_short.date_updated, covid_level_date_short.covid_hospital_admissions_per_100k, '.-')
+ax2.set_ylabel('covid_hospital_admissions_per_100k')
+
+ax3.plot(covid_level_date_short.date_updated, covid_level_date_short.covid_cases_per_100k, 'x-')
+ax3.set_ylabel('covid_cases_per_100k')
+ax3.set_xlabel('Date')
+
+plt.show()
+'''
+
+# Multiple lines using pyplot
+# red dashes, blue squares and green triangles
+plt.plot(covid_level_date_short.date_updated, covid_level_date_short.covid_inpatient_bed_utilization, 'r--',
+         covid_level_date_short.date_updated, covid_level_date_short.covid_hospital_admissions_per_100k, 'b.',
+         covid_level_date_short.date_updated, covid_level_date_short.covid_cases_per_100k, 'g^')
 plt.show()
