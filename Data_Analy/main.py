@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from natsort import index_natsorted
+import seaborn as sns
 
 # citi_bikes = pd.read_csv("data/citibike.csv")
 
@@ -275,4 +276,17 @@ plt.show()
 plt.plot(covid_level_date_short.date_updated, covid_level_date_short.covid_inpatient_bed_utilization, 'r--',
          covid_level_date_short.date_updated, covid_level_date_short.covid_hospital_admissions_per_100k, 'b.',
          covid_level_date_short.date_updated, covid_level_date_short.covid_cases_per_100k, 'g^')
+plt.xlabel("Date")
+plt.ylabel("Number of cases")
+plt.legend(['covid_inpatient_bed_utilization', 'covid_hospital_admissions_per_100k', 'covid_cases_per_100k'],
+           ncol=1, loc='upper right')
+
+plt.title('Covid Level in the US', fontsize=20, fontname='Times New Roman')
+
+'''# integrate LaTeX expressions (insert mathematical expressions within the chart)
+plt.text(covid_level_date_short.date_updated[42], 750000, r'$y = x^2$', fontsize=20, bbox={'facecolor': 'yellow',
+                                                                                           'alpha': 0.2})
+'''
+
+sns.set()
 plt.show()
