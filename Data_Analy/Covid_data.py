@@ -23,10 +23,10 @@ print(covid_data_short[0:3])
 covid_data_short.to_csv('data/coviddata.csv')
 
 covid_data = pd.read_csv("data/coviddata.csv")
-print(covid_data)
+# print(covid_data)
 covid_data_remove = covid_data.dropna()  # remove/drop the rows where at least one element is missing.
-print(covid_data_remove.isnull().any())  # check whether there were any rows with nulls
-print(covid_data_remove)
+# print(covid_data_remove.isnull().any())  # check whether there were any rows with nulls
+# print(covid_data_remove)
 # convert to date
 covid_data_remove['sample_collect_date'] = pd.to_datetime(covid_data_remove['sample_collect_date'])
 covid_data_date_short = covid_data_remove.sort_values(by='sample_collect_date')
@@ -37,8 +37,9 @@ print(covid_data_date_short)
 covid_data_date_short.to_csv('data/coviddatafinal.csv')
 '''
 
+pd.set_option('display.max_columns', None)  # force pandas to display any/all number of columns.
 covid_data = pd.read_csv("data/coviddatafinal.csv")
-print(covid_data)
+print(covid_data[0:20])
 
 
 

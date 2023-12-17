@@ -6,6 +6,7 @@ from sklearn.preprocessing import MinMaxScaler
 from natsort import index_natsorted
 import seaborn as sns
 
+
 # citi_bikes = pd.read_csv("data/citibike.csv")
 
 # citi_bikes = pd.DataFrame(pd.read_csv("data/citibike.csv"))
