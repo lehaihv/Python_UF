@@ -38,7 +38,7 @@ covid_data_date_short.to_csv('data/coviddatafinal.csv')
 '''
 
 pd.set_option('display.max_columns', None)  # force pandas to display any/all number of columns.
-'''
+# '''
 covid_data = pd.read_csv("data/coviddatafinal.csv")
 print(covid_data)
 
@@ -46,7 +46,7 @@ print(covid_data.groupby('wwtp_name').sum())
 
 covid_data_wtp_name = covid_data.groupby('wwtp_name').sum()
 covid_data_wtp_name.to_csv('data/coviddatafinal1.csv')
-'''
+# '''
 
 covid_data1 = pd.read_csv("data/coviddatafinal1.csv")[0:50]
 print(covid_data1)
