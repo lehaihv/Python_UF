@@ -13,17 +13,34 @@ print("Shape of covid level data: {}".format(covid_data.shape))  # show shape of
 # points and features
 print("Feature names: \n{}".format(covid_data.keys()))  # print all feature names of dataset
 
+# create new covid_data_short data_frame to store interested data
 covid_data_short = pd.DataFrame(columns=['sample_collect_date', 'wwtp_name', 'pcr_target_flowpop_lin', 'pcr_target',
-                                         'pcr_gene_target_agg'])
-covid_data_short[['sample_collect_date', 'wwtp_name', 'pcr_target_flowpop_lin', 'pcr_target', 'pcr_gene_target_agg']] \
-    = covid_data[['sample_collect_date', 'wwtp_name', 'pcr_target_flowpop_lin', 'pcr_target', 'pcr_gene_target_agg']]
+                                         'pcr_gene_target_agg', 'county_names'])
+# copy interested data from dataset to new data_frame
+covid_data_short[['sample_collect_date', 'wwtp_name', 'pcr_target_flowpop_lin', 'pcr_target', 'pcr_gene_target_agg',
+                  'county_names']] = covid_data[['sample_collect_date', 'wwtp_name', 'pcr_target_flowpop_lin',
+                                                 'pcr_target', 'pcr_gene_target_agg', 'county_names']]
 
 print(covid_data_short[0:3])
 
 covid_data_short.to_csv('data/coviddata.csv')
 
+
 covid_data = pd.read_csv("data/coviddata.csv")
-# print(covid_data)
+print(covid_data)
+
+# create new covid_data_short data_frame to store interested data
+covid_data_short = pd.DataFrame(columns=['sample_collect_date', 'pcr_target_flowpop_lin'])
+# copy interested data from dataset to new data_frame
+covid_data_short[['sample_collect_date', 'pcr_target_flowpop_lin']] = covid_data[['sample_collect_date',
+                                                                                  'pcr_target_flowpop_lin']]
+
+covid_data_short.to_csv('data/coviddata1.csv')
+
+
+covid_data = pd.read_csv("data/coviddata1.csv")
+print(covid_data)
+
 covid_data_remove = covid_data.dropna()  # remove/drop the rows where at least one element is missing.
 # print(covid_data_remove.isnull().any())  # check whether there were any rows with nulls
 # print(covid_data_remove)
@@ -35,9 +52,10 @@ print(covid_data_date_short)
 # covid_data_sum = covid_data_date_short.groupby('sample_collect_date').sum()
 # print(covid_data_sum)
 covid_data_date_short.to_csv('data/coviddatafinal.csv')
-'''
+
 
 pd.set_option('display.max_columns', None)  # force pandas to display any/all number of columns.
+'''
 '''
 covid_data = pd.read_csv("data/coviddatafinal.csv")
 print(covid_data)
@@ -71,13 +89,25 @@ sns.set()
 plt.show()
 
 '''
-covid_data = pd.read_excel("data/sarscovwastewater.xlsx")
+
+'''
+covid_data = pd.read_excel("data/covid_29019.xlsx")
 print(covid_data)
-covid_data['date'] = pd.to_datetime(covid_data['date']).dt.date  # Only keep date, remove time
-print(covid_data['date'])
+# covid_data_remove = covid_data.dropna()  # remove/drop the rows where at least one element is missing.
+# covid_data_remove.to_excel('data/covid_29019.xlsx')
 
-# covid_data.to_excel('data/covid_concentration.xlsx')
 
+# convert to date
+covid_data['date'] = pd.to_datetime(covid_data['date'])
+#covid_data_date_short = covid_data_remove.sort_values(by='date')
+#print(covid_data_date_short)
+
+# covid_data['date'] = pd.to_datetime(covid_data['date']).dt.date  # Only keep date, remove time
+# print(covid_data['date'])
+
+# covid_data_date_short.to_excel('data/covid_29019.xlsx')
+'''
+'''
 # Sample date&time variable
 date_time_var = covid_data['date'][0]
 
@@ -91,3 +121,12 @@ date_var = date_time_obj.date()
 date_str = date_var.strftime('%Y-%m-%d')
 print(date_time_var)
 print(date_str)
+'''
+
+covid_data = pd.read_csv("data/covid_29019.csv")
+print(covid_data)
+# convert to date
+covid_data['date'] = pd.to_datetime(covid_data['date'])
+#covid_data_date_short = covid_data.sort_values(by='date')
+#print(covid_data_date_short)
+#covid_data_date_short.to_csv('data/covid_29019_Bo.csv')
