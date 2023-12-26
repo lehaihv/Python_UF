@@ -73,7 +73,21 @@ plt.show()
 '''
 covid_data = pd.read_excel("data/sarscovwastewater.xlsx")
 print(covid_data)
-covid_data['date'] = pd.to_datetime(covid_data['date'])
-print(covid_data)
-covid_data.to_excel('data/covid_concentration.xlsx')
+covid_data['date'] = pd.to_datetime(covid_data['date']).dt.date  # Only keep date, remove time
+print(covid_data['date'])
 
+# covid_data.to_excel('data/covid_concentration.xlsx')
+
+# Sample date&time variable
+date_time_var = covid_data['date'][0]
+
+# Convert to Pandas datetime object
+date_time_obj = pd.to_datetime(date_time_var)
+
+# Remove time from the datetime object
+date_var = date_time_obj.date()
+
+# Convert the date object to a string
+date_str = date_var.strftime('%Y-%m-%d')
+print(date_time_var)
+print(date_str)
