@@ -125,7 +125,7 @@ print(date_str)
 '''
 
 covid_data = pd.read_csv("data/covid_29019.csv")
-# print(covid_data)
+print(covid_data)
 # convert to date
 # covid_data['date'] = pd.to_datetime(covid_data['date'])
 # covid_data_date_short = covid_data.sort_values(by='date')
@@ -133,23 +133,23 @@ covid_data = pd.read_csv("data/covid_29019.csv")
 # covid_data_date_short.to_csv('data/covid_29019_Bo.csv')
 
 # Data generation
-x = np.linspace(0, 5, num=50)
-y = np.array(covid_data.concentration).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
+x = np.linspace(0, 5, num=16)
+y = np.array(covid_data.concentration[0:16]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
 
 # Model fitting
 lowess_model = lowess.Lowess()
 lowess_model.fit(x, y)
 
 # Model prediction
-x_pred = np.linspace(0, 5, 50)
+x_pred = np.linspace(0, 5, 146)
 y_pred = lowess_model.predict(x_pred)
 
 # Plotting
 plt.plot(x_pred, y_pred, '--', label='LOWESS', color='k', zorder=3)
-plt.scatter(x, y, label='Noisy Sin Wave', color='C1', s=5, zorder=1)
+plt.scatter(x, y, label='Noisy Virus Concentration', color='C1', s=5, zorder=1)
 plt.legend(frameon=False)
 plt.show()
 print(y)
 print(y_pred)
-covid_data.concentration = y_pred
-covid_data.to_csv('data/covid_29019_1.csv')
+# covid_data.concentration[0:146] = y_pred
+# pd.DataFrame(y_pred).to_csv('data/covid_29019_2.csv')
