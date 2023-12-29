@@ -133,8 +133,8 @@ print(covid_data)
 # covid_data_date_short.to_csv('data/covid_29019_Bo.csv')
 
 # Data generation
-x = np.linspace(0, 5, num=17)
-y = np.array(covid_data.concentration[0:17]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
+x = np.linspace(0, 5, num=63)
+y = np.array(covid_data.case_100k[0:63]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
 
 # Model fitting
 lowess_model = lowess.Lowess()
@@ -151,5 +151,5 @@ plt.legend(frameon=False)
 plt.show()
 print(y)
 print(y_pred)
-# covid_data.concentration[0:146] = y_pred
-# pd.DataFrame(y_pred).to_csv('data/covid_29019_2.csv')
+covid_data.concentration = pd.Series(y_pred)
+pd.DataFrame(y_pred).to_csv('data/covid_29019_2.csv')
