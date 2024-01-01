@@ -153,3 +153,15 @@ print(y)
 print(y_pred)
 covid_data.concentration = pd.Series(y_pred)
 pd.DataFrame(y_pred).to_csv('data/covid_29019_2.csv')
+
+
+'''
+covid_data = pd.read_excel("data/Community_covid.xlsx")
+# print(covid_data)
+covid_data['date_updated'] = pd.to_datetime(covid_data['date_updated']).dt.date  # Only keep date, remove time
+# print(covid_data['date_updated'])
+# covid_data_date_short = covid_data.sort_values(by='date_updated')
+# print(covid_data_date_short)
+covid_data.to_excel('data/Community_covid1.xlsx')
+'''
+
