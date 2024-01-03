@@ -133,15 +133,15 @@ print(covid_data)
 # covid_data_date_short.to_csv('data/covid_29019_Bo.csv')
 
 # Data generation
-x = np.linspace(0, 5, num=74)
-y = np.array(covid_data.ww_data[0:74]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
+x = np.linspace(0, 150, num=789)
+y = np.array(covid_data.cc_data[0:789]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
 
 # Model fitting
 lowess_model = lowess.Lowess()
 lowess_model.fit(x, y)
 
 # Model prediction
-x_pred = np.linspace(0, 5, 513)
+x_pred = np.linspace(0, 150, 951)
 y_pred = lowess_model.predict(x_pred)
 
 # Plotting
