@@ -6,6 +6,7 @@ from sklearn.preprocessing import MinMaxScaler
 from natsort import index_natsorted
 import seaborn as sns
 from moepy import lowess
+from sklearn.metrics import mean_squared_error
 
 '''
 covid_data = pd.read_csv("data/cdcdataset.csv")
@@ -125,35 +126,44 @@ print(date_str)
 '''
 
 covid_data = pd.read_csv("data/covid_29019.csv")
-print(covid_data)
+# print(covid_data)
+
+# mean_squared_error function with a squared kwarg (defaults to True)
+# setting squared to False will return the RMSE.
+# rms = mean_squared_error(covid_data.Rt_cc, covid_data.Rt_ww, squared=False)
+# print(rms)
+
+
 # convert to date
 # covid_data['date'] = pd.to_datetime(covid_data['date'])
 # covid_data_date_short = covid_data.sort_values(by='date')
 # print(covid_data_date_short)
 # covid_data_date_short.to_csv('data/covid_29019_Bo.csv')
-
+# Lowess
 # Data generation
-x = np.linspace(0, 150, num=789)
-y = np.array(covid_data.cc_data[0:789]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
+x = np.linspace(0, 1247, num=177)  # CC: 789 WW: 177
+y = np.array(covid_data.ww_data[0:177]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
 
 # Model fitting
 lowess_model = lowess.Lowess()
-lowess_model.fit(x, y)
+# frac default value of 0.4, where the nearest 40% of the data-points to the local regression will be used
+lowess_model.fit(x, y, frac=0.25)  # , num_fits=25
 
 # Model prediction
-x_pred = np.linspace(0, 150, 951)
+x_pred = np.linspace(0, 1247, 1247)  # CC: 951 WW: 1247
 y_pred = lowess_model.predict(x_pred)
 
 # Plotting
 plt.plot(x_pred, y_pred, '--', label='LOWESS', color='k', zorder=3)
-plt.scatter(x, y, label='Noisy Virus Concentration', color='C1', s=5, zorder=1)
+plt.scatter(x, y, label='Noisy CC data', color='C1', s=5, zorder=1)
 plt.legend(frameon=False)
 plt.show()
+'''
 print(y)
 print(y_pred)
 covid_data.concentration = pd.Series(y_pred)
 pd.DataFrame(y_pred).to_csv('data/covid_29019_2.csv')
-
+'''
 
 '''
 covid_data = pd.read_excel("data/Community_covid.xlsx")
@@ -164,4 +174,3 @@ covid_data['date_updated'] = pd.to_datetime(covid_data['date_updated']).dt.date 
 # print(covid_data_date_short)
 covid_data.to_excel('data/Community_covid1.xlsx')
 '''
-
