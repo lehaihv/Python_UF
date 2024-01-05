@@ -141,7 +141,7 @@ covid_data = pd.read_csv("data/covid_29019.csv")
 # covid_data_date_short.to_csv('data/covid_29019_Bo.csv')
 # Lowess
 # Data generation
-x = np.linspace(0, 177, num=177)  # CC: 789 WW: 177
+x = np.linspace(0, 1247, num=177)  # CC: 789 WW: 177
 y = np.array(covid_data.ww_data[0:177]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
 
 # Model fitting
@@ -150,12 +150,12 @@ lowess_model = lowess.Lowess()
 lowess_model.fit(x, y, frac=0.03, num_fits=100)  # , num_fits=25
 
 # Model prediction
-x_pred = np.linspace(0, 177, 177)  # CC: 951 WW: 1247
+x_pred = np.linspace(0, 1247, 1247)  # CC: 951 WW: 1247
 y_pred = lowess_model.predict(x_pred)
 
 # Plotting
 plt.plot(x_pred, y_pred, '--', label='LOWESS', color='k', zorder=3)
-plt.scatter(x, y, label='Noisy CC data', color='C1', s=5, zorder=1)
+plt.scatter(x, y, label='Noisy WW data', color='C1', s=5, zorder=1)
 plt.legend(frameon=False)
 plt.show()
 
