@@ -125,21 +125,45 @@ print(date_time_var)
 print(date_str)
 '''
 
-covid_data = pd.read_csv("data/covid_29019.csv")
-# print(covid_data)
+covid_data = pd.read_csv("data/covid_264.csv")
+print(covid_data.ww_data)
 
 # mean_squared_error function with a squared kwarg (defaults to True)
 # setting squared to False will return the RMSE.
 # rms = mean_squared_error(covid_data.Rt_cc, covid_data.Rt_ww, squared=False)
 # print(rms)
+# Lowess for 264
+# Data generation
+x = np.linspace(0, 1247, num=174)  # CC: 894 WW: 174
+y = np.array(covid_data.ww_data[0:174]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
 
+# Model fitting
+lowess_model = lowess.Lowess()
+# frac default value of 0.4, where the nearest 40% of the data-points to the local regression will be used
+lowess_model.fit(x, y, frac=0.03, num_fits=100)  # , num_fits=25
+
+# Model prediction
+x_pred = np.linspace(0, 1247, 1247)  # CC: 894 WW: 1247
+y_pred = lowess_model.predict(x_pred)
+
+# Plotting
+plt.plot(x_pred, y_pred, '--', label='LOWESS', color='k', zorder=3)
+plt.scatter(x, y, label='Noisy CC data', color='C1', s=5, zorder=1)
+plt.legend(frameon=False)
+plt.show()
+
+print(y)
+print(y_pred)
+covid_data.concentration = pd.Series(y_pred)
+pd.DataFrame(y_pred).to_csv('data/covid_29019_2.csv')
 
 # convert to date
 # covid_data['date'] = pd.to_datetime(covid_data['date'])
 # covid_data_date_short = covid_data.sort_values(by='date')
 # print(covid_data_date_short)
 # covid_data_date_short.to_csv('data/covid_29019_Bo.csv')
-# Lowess
+'''
+# Lowess for 29019
 # Data generation
 x = np.linspace(0, 1247, num=177)  # CC: 789 WW: 177
 y = np.array(covid_data.ww_data[0:177]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
@@ -163,7 +187,7 @@ print(y)
 print(y_pred)
 covid_data.concentration = pd.Series(y_pred)
 pd.DataFrame(y_pred).to_csv('data/covid_29019_2.csv')
-
+'''
 
 '''
 covid_data = pd.read_excel("data/Community_covid.xlsx")
