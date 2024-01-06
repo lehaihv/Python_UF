@@ -126,7 +126,7 @@ print(date_str)
 '''
 
 covid_data = pd.read_csv("data/covid_264.csv")
-print(covid_data.ww_data)
+# print(covid_data.ww_data)
 
 # mean_squared_error function with a squared kwarg (defaults to True)
 # setting squared to False will return the RMSE.
@@ -134,8 +134,8 @@ print(covid_data.ww_data)
 # print(rms)
 # Lowess for 264
 # Data generation
-x = np.linspace(0, 1247, num=174)  # CC: 894 WW: 174
-y = np.array(covid_data.ww_data[0:174]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
+x = np.linspace(0, 894, num=894)  # CC: 894 WW: 174
+y = np.array(covid_data.cc_data[0:894]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
 
 # Model fitting
 lowess_model = lowess.Lowess()
@@ -143,7 +143,7 @@ lowess_model = lowess.Lowess()
 lowess_model.fit(x, y, frac=0.03, num_fits=100)  # , num_fits=25
 
 # Model prediction
-x_pred = np.linspace(0, 1247, 1247)  # CC: 894 WW: 1247
+x_pred = np.linspace(0, 894, 894)  # CC: 894 WW: 1247
 y_pred = lowess_model.predict(x_pred)
 
 # Plotting
