@@ -134,8 +134,8 @@ covid_data = pd.read_csv("data/covid_264.csv")
 # print(rms)
 # Lowess for 264
 # Data generation
-x = np.linspace(0, 894, num=894)  # CC: 894 WW: 174
-y = np.array(covid_data.cc_data[0:894]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
+x = np.linspace(0, 159, num=159)  # CC: 894 WW: 174 pp: 159
+y = np.array(covid_data.paper_data[0:159]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
 
 # Model fitting
 lowess_model = lowess.Lowess()
@@ -143,7 +143,7 @@ lowess_model = lowess.Lowess()
 lowess_model.fit(x, y, frac=0.03, num_fits=100)  # , num_fits=25
 
 # Model prediction
-x_pred = np.linspace(0, 894, 894)  # CC: 894 WW: 1247
+x_pred = np.linspace(0, 159, 159)  # CC: 894 WW: 1247 pp: 159
 y_pred = lowess_model.predict(x_pred)
 
 # Plotting
