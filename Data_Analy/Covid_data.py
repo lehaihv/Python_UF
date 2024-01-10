@@ -125,17 +125,23 @@ print(date_time_var)
 print(date_str)
 '''
 
-covid_data = pd.read_csv("data/covid_264.csv")
-# print(covid_data.ww_data)
+covid_data = pd.read_csv("data/utah_49049.csv")
+# print(covid_data.cc_data)
+# convert to date
 
+covid_data['date'] = pd.to_datetime(covid_data['date'])
+covid_data_date_short = covid_data.sort_values(by='date')
+print(covid_data_date_short)
+covid_data_date_short.to_csv('data/covid_29019_Bo.csv')
+'''
 # mean_squared_error function with a squared kwarg (defaults to True)
 # setting squared to False will return the RMSE.
 # rms = mean_squared_error(covid_data.Rt_cc, covid_data.Rt_ww, squared=False)
 # print(rms)
 # Lowess for 264
 # Data generation
-x = np.linspace(0, 159, num=159)  # CC: 894 WW: 174 pp: 159
-y = np.array(covid_data.paper_data[0:159]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
+x = np.linspace(0, 64, num=64)  # CC: 894 WW: 174 pp: 159
+y = np.array(covid_data.cc_data[0:64]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
 
 # Model fitting
 lowess_model = lowess.Lowess()
@@ -143,7 +149,7 @@ lowess_model = lowess.Lowess()
 lowess_model.fit(x, y, frac=0.03, num_fits=100)  # , num_fits=25
 
 # Model prediction
-x_pred = np.linspace(0, 159, 159)  # CC: 894 WW: 1247 pp: 159
+x_pred = np.linspace(0, 64, 64)  # CC: 894 WW: 1247 pp: 159
 y_pred = lowess_model.predict(x_pred)
 
 # Plotting
@@ -156,7 +162,7 @@ print(y)
 print(y_pred)
 covid_data.concentration = pd.Series(y_pred)
 pd.DataFrame(y_pred).to_csv('data/covid_29019_2.csv')
-
+'''
 # convert to date
 # covid_data['date'] = pd.to_datetime(covid_data['date'])
 # covid_data_date_short = covid_data.sort_values(by='date')
