@@ -224,7 +224,8 @@ covid_level_date = pd.read_csv("data/ch05.csv", encoding='latin-1')
 
 # convert to date
 covid_level_date['date_updated'] = pd.to_datetime(covid_level_date['date_updated'])
-
+# convert dataframe to list
+labels = covid_level.dates.tolist()  
 # verify datatype
 # print(type(covid_level_date.date_updated[0]))
 
@@ -293,12 +294,13 @@ sns.set()
 plt.show()
 '''
 covid_level = pd.read_csv("data/Mean_R.csv")
-print(covid_level.head())
+print(covid_level.dates.tolist())
 # Multiple lines using pyplot
 # red dashes, blue squares and green triangles
+
 plt.plot(covid_level.dates, covid_level.R_49049, 'r--',
-         covid_level.dates, covid_level.R_264, 'b.',
-         covid_level.dates, covid_level.R_29019, 'g^')
+         covid_level.dates, covid_level.R_264, 'k-.',
+         covid_level.dates, covid_level.R_29019, 'g-')
 plt.xlabel("Date")
 plt.ylabel("Mean(R)")
 plt.legend(['Ut_17', 'Mo_264', 'Mo_119'],
@@ -310,3 +312,8 @@ ax.set_xticks(ax.get_xticks()[::80])
 plt.grid()
 sns.set()
 plt.show()
+
+
+
+
+
