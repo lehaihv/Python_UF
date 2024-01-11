@@ -293,6 +293,7 @@ plt.text(covid_level_date_short.date_updated[42], 750000, r'$y = x^2$', fontsize
 sns.set()
 plt.show()
 '''
+'''
 covid_level = pd.read_csv("data/Mean_R.csv")
 print(covid_level.dates.tolist())
 # Multiple lines using pyplot
@@ -312,8 +313,52 @@ ax.set_xticks(ax.get_xticks()[::80])
 plt.grid()
 sns.set()
 plt.show()
+'''
 
+covid_level = pd.read_csv("data/Mean_R.csv")
 
+# Random test data
+np.random.seed(19680801)
+all_data = [covid_level.R_49049, covid_level.R_264, covid_level.R_29019]
+# [np.random.normal(0, std, size=100) for std in range(1, 4)]
+# print(all_data)
+labels = ['Ut_17', 'Mo_264', 'Mo_119']
 
+fig, ax1 = plt.subplots(nrows=1, ncols=1, figsize=(15, 5))
 
+# rectangular box plot
+bplot1 = ax1.boxplot(all_data,
+                     # notch=True,  # notch shape
+                     showfliers=False,
+                     vert=True,  # vertical box alignment
+                     patch_artist=True,  # fill with color
+                     showmeans=True,
+                     medianprops=dict(linestyle='-', linewidth=3),
+                     labels=labels)  # will be used to label x-ticks
+ax1.set_title('Estimated Rt from CC data box plot')
+
+for median in bplot1['medians']:
+    median.set_color('red')
+# notch shape box plot
+'''
+bplot2 = ax2.boxplot(all_data,
+                     notch=True,  # notch shape
+                     vert=True,  # vertical box alignment
+                     patch_artist=True,  # fill with color
+                     labels=labels)  # will be used to label x-ticks
+ax2.set_title('Notched box plot')
+
+# fill with colors
+colors = ['pink', 'lightblue', 'lightgreen']
+for bplot in (bplot1, bplot2):
+    for patch, color in zip(bplot['boxes'], colors):
+        patch.set_facecolor(color)
+'''
+# adding horizontal grid lines
+# for ax in [ax1]:
+ax1.yaxis.grid(True)
+ax1.set_xlabel('Three regions')
+ax1.set_ylabel('Mean(R)')
+
+plt.show()
 
