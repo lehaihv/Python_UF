@@ -6,16 +6,16 @@ from sklearn.preprocessing import MinMaxScaler
 from natsort import index_natsorted
 import seaborn as sns
 
-
 # citi_bikes = pd.read_csv("data/citibike.csv")
 
 # citi_bikes = pd.DataFrame(pd.read_csv("data/citibike.csv"))
+'''
 covid_level = pd.read_csv("data/covidlevel.csv", encoding='latin-1')
 
 pd.set_option('display.max_columns', None)  # force pandas to display any/all number of columns.
 # pd.set_option('display.max_columns', 6)  # force pandas to display 6 columns.
 # pd.set_option('display.max_rows', None)  # force pandas to display any/all number of rows.
-
+'''
 # X_train, X_test, y_train, y_test = train_test_split(citi_bikes.tripduration, citi_bikes.bikeid,
 #                                                    random_state=1)
 
@@ -206,7 +206,7 @@ plt.ylabel('covid_cases_per_100k')
 plt.grid()
 plt.show()
 '''
-
+'''
 covid_level_sum = covid_level.groupby('date_updated').sum()
 covid_level_short = covid_level_sum.drop(["county", "county_fips", "state", "county_population",
                                           "health_service_area_number", "health_service_area_population",
@@ -232,7 +232,7 @@ covid_level_date['date_updated'] = pd.to_datetime(covid_level_date['date_updated
 # covid_level_date.sort_values(by='date_updated').to_csv('data/ch05.csv')
 covid_level_date_short = covid_level_date.sort_values(by='date_updated')
 print(covid_level_date_short)
-
+'''
 ''' Stackplot
 # data from United Nations World Population Prospects (Revision 2019)
 # https://population.un.org/wpp/, license: CC BY 3.0 IGO
@@ -271,7 +271,7 @@ ax3.set_xlabel('Date')
 
 plt.show()
 '''
-
+'''
 # Multiple lines using pyplot
 # red dashes, blue squares and green triangles
 plt.plot(covid_level_date_short.date_updated, covid_level_date_short.covid_inpatient_bed_utilization, 'r--',
@@ -284,10 +284,29 @@ plt.legend(['covid_inpatient_bed_utilization', 'covid_hospital_admissions_per_10
 
 plt.title('Covid Level in the US', fontsize=20, fontname='Times New Roman')
 
-'''# integrate LaTeX expressions (insert mathematical expressions within the chart)
+# integrate LaTeX expressions (insert mathematical expressions within the chart)
 plt.text(covid_level_date_short.date_updated[42], 750000, r'$y = x^2$', fontsize=20, bbox={'facecolor': 'yellow',
                                                                                            'alpha': 0.2})
-'''
 
+
+sns.set()
+plt.show()
+'''
+covid_level = pd.read_csv("data/Mean_R.csv")
+print(covid_level.head())
+# Multiple lines using pyplot
+# red dashes, blue squares and green triangles
+plt.plot(covid_level.dates, covid_level.R_49049, 'r--',
+         covid_level.dates, covid_level.R_264, 'b.',
+         covid_level.dates, covid_level.R_29019, 'g^')
+plt.xlabel("Date")
+plt.ylabel("Mean(R)")
+plt.legend(['Ut_17', 'Mo_264', 'Mo_119'],
+           ncol=1, loc='upper right')
+
+plt.title('Estimated Rt from CC data', fontsize=20, fontname='Times New Roman')
+ax = plt.gca()
+ax.set_xticks(ax.get_xticks()[::80])
+plt.grid()
 sns.set()
 plt.show()
