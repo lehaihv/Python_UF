@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from natsort import index_natsorted
 import seaborn as sns
+from sklearn.metrics import mean_squared_error
 
 # citi_bikes = pd.read_csv("data/citibike.csv")
 
@@ -316,6 +317,13 @@ plt.show()
 '''
 
 covid_level = pd.read_csv("data/Mean_R.csv")
+
+# mean_squared_error function with a squared kwarg (defaults to True)
+# setting squared to False will return the RMSE.
+rms = mean_squared_error(covid_level.R_49049, covid_level.R_264, squared=False)
+rms1 = mean_squared_error(covid_level.R_49049, covid_level.R_29019, squared=False)
+print(rms)
+print(rms1)
 
 # Random test data
 np.random.seed(19680801)
