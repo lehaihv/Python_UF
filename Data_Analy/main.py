@@ -320,24 +320,25 @@ covid_level = pd.read_csv("data/Mean_R.csv")
 
 # mean_squared_error function with a squared kwarg (defaults to True)
 # setting squared to False will return the RMSE.
+'''
 rms = mean_squared_error(covid_level.R_49049, covid_level.R_264, squared=False)
 rms1 = mean_squared_error(covid_level.R_49049, covid_level.R_29019, squared=False)
 print(rms)
 print(rms1)
-
+'''
 # Random test data
-np.random.seed(19680801)
-all_data = [covid_level.R_49049, covid_level.R_264, covid_level.R_29019]
+# np.random.seed(19680801)
+all_data = [covid_level.R_49049, covid_level.R_264, covid_level.R_29019, covid_level.R_45045, covid_level.R_ca354]
 # [np.random.normal(0, std, size=100) for std in range(1, 4)]
 # print(all_data)
-labels = ['Ut_17', 'Mo_264', 'Mo_119']
+labels = ['Ut_17', 'Mo_264', 'Mo_119', 'Sc_884', 'Ca_354']
 
 fig, ax1 = plt.subplots(nrows=1, ncols=1, figsize=(15, 5))
 
 # rectangular box plot
 bplot1 = ax1.boxplot(all_data,
                      # notch=True,  # notch shape
-                     showfliers=False,
+                     # showfliers=False,
                      vert=True,  # vertical box alignment
                      patch_artist=True,  # fill with color
                      showmeans=True,
@@ -365,7 +366,7 @@ for bplot in (bplot1, bplot2):
 # adding horizontal grid lines
 # for ax in [ax1]:
 ax1.yaxis.grid(True)
-ax1.set_xlabel('Three regions')
+ax1.set_xlabel('Regions')
 ax1.set_ylabel('Mean(R)')
 
 plt.show()
