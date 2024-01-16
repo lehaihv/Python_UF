@@ -329,17 +329,17 @@ print(rms1)
 # Random test data
 # np.random.seed(19680801)
 all_data = [covid_level.R_49049, covid_level.R_264, covid_level.R_29019, covid_level.R_45045, covid_level.R_ca354,
-            covid_level.R_co116, covid_level.R_oh102, covid_level.R_wi203]
+            covid_level.R_co116, covid_level.R_oh102, covid_level.R_wi203, covid_level.R_ca506]
 # [np.random.normal(0, std, size=100) for std in range(1, 4)]
 # print(all_data)
-labels = ['Ut_17', 'Mo_264', 'Mo_119', 'Sc_884', 'Ca_354', 'Co_116', 'Oh_102', 'Wi_203']
+labels = ['Ut_17', 'Mo_264', 'Mo_119', 'Sc_884', 'Ca_354', 'Co_116', 'Oh_102', 'Wi_203', 'Ca_506']
 
 fig, ax1 = plt.subplots(nrows=1, ncols=1, figsize=(15, 5))
 
 # rectangular box plot
 bplot1 = ax1.boxplot(all_data,
                      # notch=True,  # notch shape
-                     # showfliers=False,
+                     showfliers=False,
                      vert=True,  # vertical box alignment
                      patch_artist=True,  # fill with color
                      showmeans=True,
