@@ -125,7 +125,7 @@ print(date_time_var)
 print(date_str)
 '''
 
-covid_data = pd.read_csv("data/va_1828.csv")
+covid_data = pd.read_csv("data/mo_119.csv")
 # print(covid_data.cc_data)
 # convert to date
 '''
@@ -140,8 +140,8 @@ covid_data_date_short.to_csv('data/covid_29019_Bo.csv')
 # print(rms)
 # Lowess for 264
 # Data generation
-x = np.linspace(0, 891, num=527)  # CC: 894 WW: 174 pp: 159
-y = np.array(covid_data.cc_data[0:527]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
+x = np.linspace(0, 1161, num=985)  # CC: 894 WW: 174 pp: 159
+y = np.array(covid_data.cc_data[0:985]).reshape(-1)  # np.sin(x) + (np.random.normal(size=len(x)))/10
 
 # Model fitting
 lowess_model = lowess.Lowess()
@@ -149,7 +149,7 @@ lowess_model = lowess.Lowess()
 lowess_model.fit(x, y, frac=0.03, num_fits=100)  # , num_fits=25
 
 # Model prediction
-x_pred = np.linspace(0, 891, 891)  # CC: 894 WW: 1247 pp: 159
+x_pred = np.linspace(0, 1161, 1161)  # CC: 894 WW: 1247 pp: 159
 y_pred = lowess_model.predict(x_pred)
 
 # Plotting
