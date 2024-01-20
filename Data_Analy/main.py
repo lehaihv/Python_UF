@@ -316,7 +316,7 @@ sns.set()
 plt.show()
 '''
 
-covid_level = pd.read_csv("data/Mean_R.csv")
+covid_level = pd.read_csv("data/Mean_R1.csv")
 # covid_level = pd.read_csv("data/Mean_R_HK.csv")
 # mean_squared_error function with a squared kwarg (defaults to True)
 # setting squared to False will return the RMSE.
