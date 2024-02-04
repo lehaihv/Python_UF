@@ -328,12 +328,12 @@ print(rms1)
 '''
 # Random test data
 # np.random.seed(19680801)
-all_data = [covid_level.R_gallax, covid_level.R_Kauai]  # [covid_level.R_ca506, covid_level.R_va1828]  # covid_level.R_mo119, covid_level.R_ca258
+all_data = [covid_level.R_gallax, covid_level.R_McMullen, covid_level.R_Robertson, covid_level.R_King, covid_level.R_SantaCruz, covid_level.R_Kauai]  # [covid_level.R_ca506, covid_level.R_va1828]  # covid_level.R_mo119, covid_level.R_ca258
 # covid_level.R_mo119, covid_level.R_ca258,covid_level.R_49049, covid_level.R_264, covid_level.R_29019, covid_level.R_45045,
 #             covid_level.R_ca354, covid_level.R_co116, covid_level.R_oh102, covid_level.R_wi203,
 # [np.random.normal(0, std, size=100) for std in range(1, 4)]
 # print(all_data)
-labels = ['R_gallax', 'R_kauai']  # 'Mo_119', 'Ca_258'
+labels = ['R_gallax', 'R_McMullen', 'R_RobreR_Robertson', 'R_King', 'R_SantaCruz', 'R_kauai']  # 'Mo_119', 'Ca_258'
 # 'Mo_119', 'Ca_258', 'Ut_17', 'Mo_264', 'Mo_119', 'Sc_884', 'Ca_354', 'Co_116', 'Oh_102', 'Wi_203',
 fig, ax1 = plt.subplots(nrows=1, ncols=1, figsize=(15, 5))
 
