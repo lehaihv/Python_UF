@@ -317,6 +317,11 @@ plt.show()
 '''
 
 covid_level = pd.read_csv("data/Mean_R1.csv")
+print(covid_level['R_gallax'].corr(covid_level['R_McMullen']))
+print(covid_level['R_Robertson'].corr(covid_level['R_McMullen']))
+
+print(covid_level['R_King'].corr(covid_level['R_SantaCruz']))
+print(covid_level['R_Kauai'].corr(covid_level['R_SantaCruz']))
 # covid_level = pd.read_csv("data/Mean_R_HK.csv")
 # mean_squared_error function with a squared kwarg (defaults to True)
 # setting squared to False will return the RMSE.
@@ -328,8 +333,11 @@ print(rms1)
 '''
 # Random test data
 # np.random.seed(19680801)
-all_data = [covid_level.R_gallax, covid_level.R_McMullen, covid_level.R_Robertson, covid_level.R_King, covid_level.R_SantaCruz, covid_level.R_Kauai]  # [covid_level.R_ca506, covid_level.R_va1828]  # covid_level.R_mo119, covid_level.R_ca258
-# covid_level.R_mo119, covid_level.R_ca258,covid_level.R_49049, covid_level.R_264, covid_level.R_29019, covid_level.R_45045,
+all_data = [covid_level.R_gallax, covid_level.R_McMullen, covid_level.R_Robertson, covid_level.R_King,
+            covid_level.R_SantaCruz, covid_level.R_Kauai]
+# [covid_level.R_ca506, covid_level.R_va1828]  # covid_level.R_mo119, covid_level.R_ca258
+# covid_level.R_mo119, covid_level.R_ca258,covid_level.R_49049, covid_level.R_264,
+# covid_level.R_29019, covid_level.R_45045,
 #             covid_level.R_ca354, covid_level.R_co116, covid_level.R_oh102, covid_level.R_wi203,
 # [np.random.normal(0, std, size=100) for std in range(1, 4)]
 # print(all_data)
