@@ -317,8 +317,8 @@ plt.show()
 '''
 
 # covid_level = pd.read_csv("data/Mean_R11.csv")
-covid_level = pd.read_csv("data/weekly_case.csv")
-# covid_level = pd.read_csv("data/cumulative_deaths_JH.csv")
+# covid_level = pd.read_csv("data/weekly_case.csv")
+covid_level = pd.read_csv("data/cumulative_deaths_JH.csv")
 # covid_level = pd.read_csv("data/cumulative_deaths_CDC.csv")
 # print(covid_level['R_Galax'].corr(covid_level['R_McMullen']))
 # print(covid_level['R_Robertson'].corr(covid_level['R_McMullen']))
@@ -336,10 +336,10 @@ print(rms1)
 '''
 # Random test data np.random.seed(19680801) all_data = [covid_level.R_Galax, covid_level.R_McMullen,
 # covid_level.R_Robertson, covid_level.R_King, covid_level.R_SantaCruz, covid_level.R_Kauai]
-all_data = [covid_level.Galax, covid_level.McMullen, covid_level.Robertson, covid_level.King, covid_level.SantaCruz,
-            covid_level.Kauai]
+# all_data = [covid_level.Galax, covid_level.McMullen, covid_level.Robertson, covid_level.King, covid_level.SantaCruz,
+            #covid_level.Kauai]
 # all_data = [covid_level.King, covid_level.SantaCruz, covid_level.Kauai] all_data = [covid_level.JH]
-# all_data = [covid_level.CDC, covid_level.JH]  # , covid_level.JH_DEATHS
+all_data = [covid_level.CDC, covid_level.JH, covid_level.JH_DEATHS, covid_level.CDC_DEATHS]  # , covid_level.JH_DEATHS
 # [covid_level.R_ca506, covid_level.R_va1828]  # covid_level.R_mo119, covid_level.R_ca258
 # covid_level.R_mo119, covid_level.R_ca258,covid_level.R_49049, covid_level.R_264,
 # covid_level.R_29019, covid_level.R_45045,
@@ -347,10 +347,10 @@ all_data = [covid_level.Galax, covid_level.McMullen, covid_level.Robertson, covi
 # [np.random.normal(0, std, size=100) for std in range(1, 4)]
 # print(all_data)
 # labels = ['R_Galax', 'R_McMullen', 'R_Robertson', 'R_King', 'R_SantaCruz', 'R_Kauai']  # 'Mo_119', 'Ca_258'
-labels = ['Galax', 'McMullen', 'Robertson', 'King', 'SantaCruz', 'Kauai']  #
+# labels = ['Galax', 'McMullen', 'Robertson', 'King', 'SantaCruz', 'Kauai']  #
 # labels = ['King', 'SantaCruz', 'Kauai']
 # labels = ['JH']
-# labels = ['CDC', 'JH']  # , 'JH_DEATHS'
+labels = ['CDC', 'JH', 'JH_DEATHS', 'CDC_DEATHS']  #
 # 'Mo_119', 'Ca_258', 'Ut_17', 'Mo_264', 'Mo_119', 'Sc_884', 'Ca_354', 'Co_116', 'Oh_102', 'Wi_203',
 fig, ax1 = plt.subplots(nrows=1, ncols=1, figsize=(15, 5))
 
