@@ -392,4 +392,9 @@ ax1.yaxis.grid(True)
 # ax1.set_xlabel('Regions')
 # ax1.set_ylabel('Mean(R)')
 
-plt.show()
+#plt.show()
+
+#######
+print("25th percentile of arr : ", np.percentile(covid_level.pcr_target_flowpop_lin_log10, 25))
+print("50th percentile of arr : ", np.percentile(covid_level.pcr_target_flowpop_lin_log10, 50))
+print("75th percentile of arr : ", np.percentile(covid_level.pcr_target_flowpop_lin_log10, 75))
